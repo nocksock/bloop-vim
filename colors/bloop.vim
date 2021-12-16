@@ -17,22 +17,26 @@ let g:colors_name = 'bloop'
 
 " Palette {{{
 
-let s:fg = ['#F8F8F2', 7]
-let s:cyan = ['#70F7C4', 159]
-let s:green = ['#A2E568', 84]
-let s:green_alt = ['#228876', 82]
-let s:orange = ['#F8935A', 208]
-let s:pink = ['#F38DB5', 212]
-let s:purple = ['#773344', 96]
-let s:red = ['#CA4E68', 203]
-let s:yellow = ['#F7E480', 228]
-let s:grey = ['#606C80', 242]
-let s:grey_dark = ['#393455', 238]
-let s:grey_darker = ['#222244', 235]
-let s:accent = ['#C82763', 161]
-let s:dim = ['#1C1A23', 235]
-let s:hidden = ['#050505', 233]
-let s:none = ['NONE', 'NONE']
+" Toggle this to adjust the 256 based colors
+" set notermguicolors
+
+let s:fg          = g:bloop#palette.fg
+let s:cyan        = g:bloop#palette.cyan
+let s:green       = g:bloop#palette.green
+let s:green_alt   = g:bloop#palette.green_alt
+let s:orange      = g:bloop#palette.orange
+let s:pink        = g:bloop#palette.pink
+let s:purple      = g:bloop#palette.purple
+let s:red         = g:bloop#palette.red
+let s:yellow      = g:bloop#palette.yellow
+let s:grey        = g:bloop#palette.grey
+let s:grey_dark   = g:bloop#palette.grey_dark
+let s:grey_darker = g:bloop#palette.grey_darker
+let s:accent      = g:bloop#palette.accent
+let s:dim         = g:bloop#palette.dim
+let s:hidden      = g:bloop#palette.hidden
+let s:black       = g:bloop#palette.black
+let s:none        = g:bloop#palette.none
 
 " }}}
 
@@ -284,6 +288,33 @@ hi! link jsxTagName Keyword
 hi! link jsxTagName BloopAccent
 
 " }}}
+
+" }}}
+
+" Colors for Plugins {{{
+if exists('g:loaded_fzf')
+  let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Search'],
+    \ 'fg+':     ['fg', 'Normal'],
+    \ 'bg+':     ['bg', 'Normal'],
+    \ 'hl+':     ['fg', 'BloopOrange'],
+    \ 'info':    ['fg', 'BloopPurple'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'BloopGreen'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'],
+    \}
+endif
+
+if exists('g:loaded_gitgutter')
+  hi! link GitGutterAdd    DiffAdd
+  hi! link GitGutterChange DiffChange
+  hi! link GitGutterDelete DiffDelete
+endif
 
 " }}}
 
