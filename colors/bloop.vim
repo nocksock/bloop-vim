@@ -17,9 +17,6 @@ let g:colors_name = 'bloop'
 
 " Palette {{{
 
-" Toggle this to adjust the 256 based colors
-" set notermguicolors
-
 let s:fg          = g:bloop#palette.fg
 let s:cyan        = g:bloop#palette.cyan
 let s:green       = g:bloop#palette.green
@@ -59,18 +56,21 @@ function! s:c(scope, fg, ...)
   let l:attrs = len(l:attr_list) > 0 ? join(l:attr_list, ',') : 'NONE'
   let l:special = get(a:, 3, ['NONE', 'NONE'])
   let l:hl_string = [
-        \ 'highlight', a:scope,
-        \ 'guifg=' . a:fg[0], 'ctermfg=' . a:fg[1],
-        \ 'guibg=' . l:bg[0], 'ctermbg=' . l:bg[1],
-        \ 'gui=' . l:attrs, 'cterm=' . l:attrs,
-        \ 'guisp=' . l:special[0],
-        \]
+    \ 'highlight', a:scope,
+    \ 'guifg=' . a:fg[0], 'ctermfg=' . a:fg[1],
+    \ 'guibg=' . l:bg[0], 'ctermbg=' . l:bg[1],
+    \ 'gui=' . l:attrs, 'cterm=' . l:attrs,
+    \ 'guisp=' . l:special[0],
+    \]
 
   execute join(l:hl_string, ' ')
 endfunction
 " }}}
 
 " Defining Groups {{{
+
+" TODO there's probably a neat way to autogenerate these from a cartesian
+" product of [...Colors]+[Fg, Bg]+([Bold, Italic, Underline, Undercurled])
 
 call s:c('BloopFg', s:fg)
 call s:c('BloopFgBold', s:fg, s:none, [s:attrs.bold])
@@ -109,6 +109,9 @@ call s:c('BloopGrey', s:grey, s:none)
 call s:c('BloopGreyDark', s:grey_dark, s:none)
 call s:c('BloopGreyInverse', s:grey, s:none, [s:attrs.inverse])
 call s:c('BloopGreyDarkInverse', s:grey_dark, s:none, [s:attrs.inverse])
+
+call s:c('BloopGreyDarker', s:grey_darker, s:none)
+
 call s:c('BloopDim', s:dim)
 
 call s:c('BloopAccent', s:accent, s:none)
@@ -130,9 +133,9 @@ call s:c('BloopErrorLine', s:none, s:none, [s:attrs.undercurl], s:red)
 call s:c('BloopInfoLine', s:none, s:none, [s:attrs.undercurl], s:cyan)
 call s:c('BloopLink', s:cyan, s:none, [s:attrs.underline])
 call s:c('BloopSearch', s:accent, s:none, [s:attrs.inverse])
-call s:c('BloopSelection', s:none, s:yellow)
+call s:c('BloopSelection', s:dim, s:yellow)
 
-call s:c('BloopNoise', s:grey_darker)
+call s:c('BloopNoise', s:grey_dark)
 call s:c('BloopHidden', s:hidden, s:none)
 call s:c('BloopTodo', s:cyan, s:none, [s:attrs.bold, s:attrs.inverse])
 call s:c('BloopWarnLine', s:none, s:none, [s:attrs.undercurl], s:orange)
@@ -145,7 +148,7 @@ call s:c('BloopWarnLine', s:none, s:none, [s:attrs.undercurl], s:orange)
 
 set background=dark
 
-call s:c('CursorLine', s:none, s:dim)
+call s:c('CursorLine', s:none, s:grey_darker)
 call s:c('Normal', s:fg, s:none )
 call s:c('SignColumn', s:dim)
 call s:c('StatusLine', s:grey, s:hidden )
@@ -187,7 +190,9 @@ hi! link VertSplit BloopHidden
 hi! link Visual BloopSelection
 hi! link VisualNOS Visual
 hi! link WarningMsg BloopOrangeInverse
-
+hi! link ExtraWhitespace BloopNoise
+hi! link SpaceError BloopNoise
+match ExtraWhitespace /\s\+\%#\@<!$/
 " }}}
 
 " Syntax {{{
@@ -240,58 +245,83 @@ hi! link helpHyperTextJump BloopLink
 
 hi! link vimUserFunc Function
 hi! link vimUsrCommand Function
+hi! link vimUsrCmd Function
 
 " }}}
 
 " javascript syntax {{{
 
-hi! link jsArrowFunction Operator
-hi! link jsBrackets BloopNoise
-hi! link jsBuiltins BloopCyan
-hi! link jsClassDefinition BloopCyan
-hi! link jsClassMethodType Keyword
-hi! link jsDestructuringAssignment BloopOrangeItalic
-hi! link jsDocParam BloopOrangeItalic
-hi! link jsDocTags Keyword
-hi! link jsDocType Type
-hi! link jsDocTypeBrackets BloopCyan
-hi! link jsFuncArgOperator Operator
-hi! link jsFuncArgs BloopOrangeItalic
-hi! link jsFuncParens BloopNoise
-hi! link jsFunction Keyword
-hi! link jsGlobalObjects BloopYellowItalic
-hi! link jsNull Constant
-hi! link jsObjectBraces BloopGrey
-hi! link jsObjectColon BloopNoise
-hi! link jsObjectValue BloopGreen
-hi! link jsObjectProp Keyword
-hi! link jsParen BloopPink
-hi! link jsParens BloopNoise
-hi! link jsReturn BloopAccent
-hi! link jsSpecial BloopGreenAlt
-hi! link jsStorageClass BloopPurple
-hi! link jsSuper BloopPurpleItalic
-hi! link jsTemplateBraces Special
-hi! link jsThis BloopPurpleItalic
-hi! link jsUndefined Constant
+" vanilla js {{{
 
-" jsx
-hi! link jsxAttrib BloopPink
-hi! link jsxBraces BloopGreyDark
-hi! link jsxClosePunct BloopGreyDark
-hi! link jsxCloseString BloopNoise
-hi! link jsxCloseTag BloopPurpleItalic
+hi! link jsArrowFunction           Operator
+hi! link jsBrackets                BloopNoise
+hi! link jsBuiltins                BloopCyan
+hi! link jsClassDefinition         BloopCyan
+hi! link jsClassMethodType         Keyword
+hi! link jsDestructuringAssignment BloopOrangeItalic
+hi! link jsDocParam                BloopOrangeItalic
+hi! link jsDocTags                 Keyword
+hi! link jsDocType                 Type
+hi! link jsDocTypeBrackets         BloopCyan
+hi! link jsFuncArgOperator         Operator
+hi! link jsFuncArgs                BloopOrangeItalic
+hi! link jsFuncParens              BloopNoise
+hi! link jsFunction                Keyword
+hi! link jsGlobalObjects           BloopYellowItalic
+hi! link jsNull                    Constant
+hi! link jsObjectBraces            BloopCyan
+hi! link jsObjectColon             BloopNoise
+hi! link jsObjectValue             BloopGreen
+hi! link jsObjectProp              Keyword
+hi! link jsParen                   BloopPink
+hi! link jsParens                  BloopNoise
+hi! link jsReturn                  BloopAccent
+hi! link jsSpecial                 BloopGreenAlt
+hi! link jsTemplateBraces          Special
+hi! link jsUndefined               Constant
+
+hi! link jsStorageClass            BloopPurpleItalic
+hi! link jsSuper                   BloopPurpleItalic
+hi! link jsThis                    BloopPurpleItalic
+
+"}}}
+"
+" jsx {{{
+
+hi! link jsxBraces        BloopNoise
+hi! link jsxClosePunct    BloopNoise
+hi! link jsxCloseString   BloopNoise
+hi! link jsxCloseTag      BloopNoise
+
+hi! link jsxTag           BloopOrange
 hi! link jsxComponentName BloopOrangeItalic
-hi! link jsxOpenPunct BloopGreyDark
-hi! link jsxTag BloopOrange
-hi! link jsxTagName Keyword
-hi! link jsxTagName BloopAccent
+
+hi! link jsxAttrib        BloopPink
+hi! link jsxOpenPunct     BloopGreyDark
+hi! link jsxTagName       Keyword
+hi! link jsxTagName       BloopAccent
+
+" }}}
+
+" }}}
+
+" tmux config syntax {{{
+
+hi! link tmuxFlags BloopPinkItalic
+hi! link tmuxOption BloopYellow
+
+" }}}
+
+" Python Syntax {{{
+
 
 " }}}
 
 " }}}
 
 " Colors for Plugins {{{
+
+" TODO I believe they should rather go into autoload?
 if exists('g:loaded_fzf')
   let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],
