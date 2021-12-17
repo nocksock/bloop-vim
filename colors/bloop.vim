@@ -190,9 +190,11 @@ hi! link VertSplit BloopHidden
 hi! link Visual BloopSelection
 hi! link VisualNOS Visual
 hi! link WarningMsg BloopOrangeInverse
-hi! link ExtraWhitespace BloopNoise
+hi! link ExtraWhitespace BloopAccentInverse
 hi! link SpaceError BloopNoise
+
 match ExtraWhitespace /\s\+\%#\@<!$/
+
 " }}}
 
 " Syntax {{{
