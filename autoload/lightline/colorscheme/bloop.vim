@@ -30,8 +30,8 @@ let s:p.visual.left = [ [s:dim, s:yellow, 'bold' ], [ s:grey, s:dim ] ]
 let s:p.replace.left = [ [s:dim, s:red, 'bold' ], [ s:grey, s:dim ] ]
 let s:p.inactive.left = [ [s:grey_dark, s:dim, 'bold' ], [ s:dim, s:grey_dark]]
 
-let s:p.tabline.tabsel = [ [s:pink, s:grey_dark, 'bold' ], [ s:grey, s:dim ] ]
-let s:p.tabline.left = [ [s:grey_dark, s:none, 'bold' ], [ s:grey, s:dim ] ]
+let s:p.tabline.tabsel = [ [s:cyan, s:grey_darker ] ]
+let s:p.tabline.left = [ [s:grey_darker, s:none ] ]
 
 let g:lightline#colorscheme#bloop#palette = lightline#colorscheme#flatten(s:p)
 
