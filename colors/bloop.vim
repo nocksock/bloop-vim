@@ -18,6 +18,7 @@ let g:colors_name = 'bloop'
 " Palette {{{
 
 let s:fg          = g:bloop#palette.fg
+let s:bg          = g:bloop#palette.bg
 let s:cyan        = g:bloop#palette.cyan
 let s:green       = g:bloop#palette.green
 let s:green_alt   = g:bloop#palette.green_alt
@@ -50,7 +51,7 @@ let s:attrs = {
       \ 'inverse':'inverse',
       \}
 
-function! s:c(scope, fg, ...) 
+function! s:c(scope, fg, ...)
   let l:bg = get(a:, 1, ['NONE', 'NONE'])
   let l:attr_list = filter(get(a:, 2, ['NONE']), 'type(v:val) == 1')
   let l:attrs = len(l:attr_list) > 0 ? join(l:attr_list, ',') : 'NONE'
@@ -84,7 +85,8 @@ call s:c('BloopGreenBold', s:green, s:none, [s:attrs.bold])
 call s:c('BloopGreenItalic', s:green, s:none, [s:attrs.italic])
 call s:c('BloopGreenItalicUnderline', s:green, s:none, [s:attrs.italic, s:attrs.underline])
 
-call s:c('BloopGreenAlt', s:green_alt, s:none, [s:attrs.bold, s:attrs.italic])
+call s:c('BloopGreenAlt', s:green_alt, s:none)
+call s:c('BloopGreenAltItalic', s:green_alt, s:none, [s:attrs.italic])
 
 call s:c('BloopOrange', s:orange)
 call s:c('BloopOrangeBold', s:orange, s:none, [s:attrs.bold])
@@ -107,8 +109,11 @@ call s:c('BloopRedInverse', s:fg, s:red)
 
 call s:c('BloopGrey', s:grey, s:none)
 call s:c('BloopGreyDark', s:grey_dark, s:none)
+call s:c('BloopGreyDarkItalic', s:grey_dark, s:none, [s:attrs.italic])
 call s:c('BloopGreyInverse', s:grey, s:none, [s:attrs.inverse])
 call s:c('BloopGreyDarkInverse', s:grey_dark, s:none, [s:attrs.inverse])
+
+call s:c('BloopLayer', s:fg, s:grey_darker)
 
 call s:c('BloopGreyDarker', s:grey_darker, s:none)
 
@@ -128,7 +133,7 @@ call s:c('BloopDiffDelete', s:accent, s:none)
 call s:c('BloopDiffText', s:grey, s:orange)
 
 call s:c('BloopError', s:accent, s:none, [], s:red)
-call s:c('BloopErrorLine', s:none, s:none, [s:attrs.undercurl], s:red)
+call s:c('BloopErrorLine', s:none, s:none, [s:attrs.italic], s:cyan)
 
 call s:c('BloopInfoLine', s:none, s:none, [s:attrs.undercurl], s:cyan)
 call s:c('BloopLink', s:cyan, s:none, [s:attrs.underline])
@@ -136,8 +141,9 @@ call s:c('BloopSearch', s:accent, s:none, [s:attrs.inverse])
 call s:c('BloopSelection', s:dim, s:yellow)
 
 call s:c('BloopNoise', s:grey_dark)
+call s:c('BloopNoiseItalic', s:grey_dark, s:none, [s:attrs.italic])
 call s:c('BloopHidden', s:hidden, s:none)
-call s:c('BloopTodo', s:cyan, s:none, [s:attrs.bold, s:attrs.inverse])
+call s:c('BloopTodo', s:green, s:none, [s:attrs.bold, s:attrs.inverse, s:attrs.italic])
 call s:c('BloopWarnLine', s:none, s:none, [s:attrs.undercurl], s:orange)
 
 " }}}
@@ -148,7 +154,9 @@ call s:c('BloopWarnLine', s:none, s:none, [s:attrs.undercurl], s:orange)
 
 set background=dark
 
-call s:c('CursorLine', s:none, s:grey_darker)
+call s:c('CursorLine', s:yellow, s:grey_darker)
+call s:c('Cursor', s:dim, s:accent)
+call s:c('iCursor', s:accent, s:dim)
 call s:c('Normal', s:fg, s:none )
 call s:c('SignColumn', s:dim)
 call s:c('StatusLine', s:grey, s:hidden )
@@ -157,12 +165,9 @@ call s:c('StatusLineTerm', s:none, s:grey_dark, [s:attrs.bold])
 call s:c('StatusLineTermNC', s:none, s:grey_dark)
 call s:c('WildMenu', s:grey, s:purple, [s:attrs.bold])
 
-hi! link Scrollbar BloopDim
-hi! link LineNr BloopDim
-hi! link CursorLineNr BloopYellow
 hi! link ColorColumn BloopGreyDark
 hi! link CursorColumn BloopYellow
-hi! link MatchParen BloopCyanItalic
+hi! link CursorLineNr BloopYellow
 hi! link DiffAdd BloopGreen
 hi! link DiffAdded DiffAdd
 hi! link DiffChange BloopDiffChange
@@ -171,17 +176,22 @@ hi! link DiffRemoved DiffDelete
 hi! link DiffText BloopDiffText
 hi! link Directory BloopPurpleBold
 hi! link ErrorMsg BloopRedInverse
+hi! link ExtraWhitespace BloopAccentInverse
 hi! link FoldColumn BloopHidden
 hi! link Folded BloopGreyDark
 hi! link IncSearch BloopOrangeInverse
+hi! link LineNr BloopGreyDark
+hi! link MatchParen BloopCyanItalic
 hi! link MoreMsg BloopFgBold
 hi! link NonText BloopDim
-hi! link Pmenu BloopGreyDark
+hi! link Pmenu BloopLayer
 hi! link PmenuSbar BloopGreyDark
 hi! link PmenuSel BloopSelection
 hi! link PmenuThumb BloopSelection
 hi! link Question BloopFgBold
+hi! link Scrollbar BloopDim
 hi! link Search BloopSearch
+hi! link SpaceError BloopNoise
 hi! link TabLine BloopGreyDark
 hi! link TabLineFill BloopGreyDark
 hi! link TabLineSel Normal
@@ -190,8 +200,6 @@ hi! link VertSplit BloopHidden
 hi! link Visual BloopSelection
 hi! link VisualNOS Visual
 hi! link WarningMsg BloopOrangeInverse
-hi! link ExtraWhitespace BloopAccentInverse
-hi! link SpaceError BloopNoise
 
 match ExtraWhitespace /\s\+\%#\@<!$/
 
@@ -204,7 +212,7 @@ match ExtraWhitespace /\s\+\%#\@<!$/
 hi! link Boolean Constant
 hi! link Character BloopPink
 hi! link Comment BloopComment
-hi! link Conceal BloopDim
+hi! link Conceal BloopDarkGrey
 hi! link Constant BloopGreen
 hi! link Debug BloopCyanItalic
 hi! link Define BloopPink
@@ -217,9 +225,9 @@ hi! link Identifier BloopCyan
 hi! link Include BloopPink
 hi! link Keyword BloopCyanItalic
 hi! link Macro BloopPink
-hi! link Noise BloopNois
+hi! link Noise BloopNoise
 hi! link Number Constant
-hi! link Operator BloopGreyDark
+hi! link Operator BloopCyan
 hi! link PreCondit BloopPink
 hi! link PreProc BloopPink
 hi! link Special BloopPink
@@ -255,12 +263,13 @@ hi! link vimUsrCmd Function
 
 " vanilla js {{{
 
-hi! link jsArrowFunction           Operator
+hi! link jsArrowFunction           BloopNoise
 hi! link jsBrackets                BloopNoise
 hi! link jsBuiltins                BloopCyan
 hi! link jsClassDefinition         BloopCyan
 hi! link jsClassMethodType         Keyword
 hi! link jsDestructuringAssignment BloopOrangeItalic
+hi! link jsLineComment Comment
 hi! link jsDocParam                BloopOrangeItalic
 hi! link jsDocTags                 Keyword
 hi! link jsDocType                 Type
@@ -269,7 +278,7 @@ hi! link jsFuncArgOperator         Operator
 hi! link jsFuncArgs                BloopOrangeItalic
 hi! link jsFuncParens              BloopNoise
 hi! link jsFunction                Keyword
-hi! link jsGlobalObjects           BloopYellowItalic
+hi! link jsGlobalObjects           BloopOrangeItalic
 hi! link jsNull                    Constant
 hi! link jsObjectBraces            BloopCyan
 hi! link jsObjectColon             BloopNoise
@@ -281,10 +290,10 @@ hi! link jsReturn                  BloopAccent
 hi! link jsSpecial                 BloopGreenAlt
 hi! link jsTemplateBraces          Special
 hi! link jsUndefined               Constant
-
-hi! link jsStorageClass            BloopPurpleItalic
+hi! link jsStorageClass            BloopYellowItalic
 hi! link jsSuper                   BloopPurpleItalic
 hi! link jsThis                    BloopPurpleItalic
+hi! link jsSpreadOperator BloopPinkItalic
 
 "}}}
 "
@@ -293,15 +302,27 @@ hi! link jsThis                    BloopPurpleItalic
 hi! link jsxBraces        BloopNoise
 hi! link jsxClosePunct    BloopNoise
 hi! link jsxCloseString   BloopNoise
-hi! link jsxCloseTag      BloopNoise
 
-hi! link jsxTag           BloopOrange
-hi! link jsxComponentName BloopOrangeItalic
+hi! link jsxElement   BloopAccent
+" hi! link jsxComponentName BloopAccent
+hi! link jsxCloseTag      BloopGreyDarkItalic
+" hi! link jsxOpenTag           BloopOrange
+" hi! link jsxElement BloopPink
+" hi! link jsxTagName       BloopAccent
 
-hi! link jsxAttrib        BloopPink
+hi! link jsxAttrib        BloopGreenAltItalic
 hi! link jsxOpenPunct     BloopGreyDark
-hi! link jsxTagName       Keyword
-hi! link jsxTagName       BloopAccent
+
+" }}}
+
+" typescript+react {{{
+
+hi! link typescriptConditional Statement
+hi! link typescriptInterfaceKeyword Keyword
+hi! link typescriptVariableDeclaration jsStorageClass
+hi! link typescriptObjectLabel jsStorageClass
+hi! link typescriptMember jsStorageClass
+hi! link typescriptReturn BloopCyan
 
 " }}}
 
@@ -319,11 +340,22 @@ hi! link tmuxOption BloopYellow
 
 " }}}
 
+" rust {{{
+
+hi! link rustModPathSep BloopGrey
+hi! link rustMacro BloopYellow
+
+" }}}
+
 " }}}
 
 " Colors for Plugins {{{
 
 " TODO I believe they should rather go into autoload?
+
+hi! link CocErrorSign BloopAccent
+hi! link CocErrorLine BloopErrorLine
+
 if exists('g:loaded_fzf')
   let g:fzf_colors = {
     \ 'fg':      ['fg', 'Normal'],

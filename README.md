@@ -4,19 +4,21 @@
 
 High contrast theme with a minimal, modern color palette.
 
-- dark theme only atm,
-- will have light theme
-- true type support
+- dark theme
+- true colors support
 - 256 colors support
-- includes colors for lightline and fzf
 - includes colors for lightline and fzf
 - does not set a background color, so that using opacity still works.
 
 ## Todo
 
 - [ ] finalize color palette
-- [ ] write proper readme
-- [ ] test with nvim
 - [ ] create light variant
-- [ ] inclue color palette for alacritty
-- [ ] 16 colors support w/ terminal palette?
+- [ ] include color palette for alacritty
+- [ ] proper 256 color support?
+- [ ] 16 colors support via terminal palette?
+- [ ] test with nvim
+- [ ] write proper readme
+- [ ] colors for bat? (preview in fzf)
+- [ ] use t_RB for background color, fallback to defined color to work in gui
+    apps (eg neovide)
