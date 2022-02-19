@@ -23,9 +23,9 @@ let s:none        = g:bloop#palette.none
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 let s:p.normal.left = [ [s:green_alt, s:green, 'bold' ], [ s:grey, s:grey_darker ] ]
 let s:p.normal.right = [ [s:grey_dark, s:none, 'bold' ], [ s:grey, s:none ] ]
-let s:p.normal.middle = [ [s:grey_dark, s:none] ]
+let s:p.normal.middle = [ [s:grey, s:none] ]
 
-let s:p.insert.left = [ [s:dim, s:cyan ], [ s:grey, s:grey_dark ] ]
+let s:p.insert.left = [ [s:dim, s:cyan ], [ s:grey, s:grey_darker ] ]
 let s:p.visual.left = [ [s:dim, s:yellow, 'bold' ], [ s:grey, s:grey_dark ] ]
 let s:p.replace.left = [ [s:dim, s:red, 'bold' ], [ s:grey, s:dim ] ]
 let s:p.inactive.left = [ [s:grey, s:grey_dark ], [ s:dim, s:grey_dark]]

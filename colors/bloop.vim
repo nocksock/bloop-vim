@@ -137,14 +137,16 @@ call s:c('BloopErrorLine', s:none, s:none, [s:attrs.italic], s:cyan)
 
 call s:c('BloopInfoLine', s:none, s:none, [s:attrs.undercurl], s:cyan)
 call s:c('BloopLink', s:cyan, s:none, [s:attrs.underline])
-call s:c('BloopSearch', s:accent, s:none, [s:attrs.inverse])
+call s:c('BloopSearch', s:accent, s:grey_darker)
 call s:c('BloopSelection', s:dim, s:yellow)
 
-call s:c('BloopNoise', s:grey_dark)
+call s:c('BloopNoise', s:grey)
 call s:c('BloopNoiseItalic', s:grey_dark, s:none, [s:attrs.italic])
 call s:c('BloopHidden', s:hidden, s:none)
 call s:c('BloopTodo', s:green, s:none, [s:attrs.bold, s:attrs.inverse, s:attrs.italic])
 call s:c('BloopWarnLine', s:none, s:none, [s:attrs.undercurl], s:orange)
+
+call s:c('BloopSoftInvert', s:grey, s:grey_darker, [s:attrs.italic], s:orange)
 
 " }}}
 
@@ -177,8 +179,8 @@ hi! link DiffText BloopDiffText
 hi! link Directory BloopPurpleBold
 hi! link ErrorMsg BloopRedInverse
 hi! link ExtraWhitespace BloopAccentInverse
-hi! link FoldColumn BloopHidden
-hi! link Folded BloopGreyDark
+hi! link FoldColumn BloopSoftInvert
+hi! link Folded BloopSoftInvert
 hi! link IncSearch BloopOrangeInverse
 hi! link LineNr BloopGreyDark
 hi! link MatchParen BloopCyanItalic
@@ -193,9 +195,9 @@ hi! link Scrollbar BloopDim
 hi! link Search BloopSearch
 hi! link SpaceError BloopNoise
 hi! link TabLine BloopGreyDark
-hi! link TabLineFill BloopGreyDark
+hi! link TabLineFill BloopAccent
 hi! link TabLineSel Normal
-hi! link Title BloopGreenBold
+hi! link Title BloopAccent
 hi! link VertSplit BloopHidden
 hi! link Visual BloopSelection
 hi! link VisualNOS Visual
@@ -212,6 +214,7 @@ match ExtraWhitespace /\s\+\%#\@<!$/
 hi! link Boolean Constant
 hi! link Character BloopPink
 hi! link Comment BloopComment
+hi! link vimLineComment Comment
 hi! link Conceal BloopDarkGrey
 hi! link Constant BloopGreen
 hi! link Debug BloopCyanItalic
@@ -301,17 +304,17 @@ hi! link jsSpreadOperator BloopPinkItalic
 
 hi! link jsxBraces        BloopNoise
 hi! link jsxClosePunct    BloopNoise
+hi! link jsxOpenPunct     BloopNoise
 hi! link jsxCloseString   BloopNoise
 
 hi! link jsxElement   BloopAccent
 " hi! link jsxComponentName BloopAccent
-hi! link jsxCloseTag      BloopGreyDarkItalic
+hi! link jsxCloseTag      BloopNoise
 " hi! link jsxOpenTag           BloopOrange
 " hi! link jsxElement BloopPink
 " hi! link jsxTagName       BloopAccent
 
 hi! link jsxAttrib        BloopGreenAltItalic
-hi! link jsxOpenPunct     BloopGreyDark
 
 " }}}
 
