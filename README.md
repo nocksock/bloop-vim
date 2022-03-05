@@ -77,15 +77,15 @@ tweaking it from time to time as well as the overall highlight groups. So if
 you're using this, expect some changes to the theme when updating your plugins
 - although they'll be minor and most will be barely noticeable.
 
-[^1] Tested with vim 8.2 and nvim 0.6.1 using polyglot and tsserver.
-[^2] That's what I primarily work with, but I'm also looking into rust, and
+[^1]: Tested with vim 8.2 and nvim 0.6.1 using polyglot and tsserver.
+[^2]: That's what I primarily work with, but I'm also looking into rust, and
 golang. So those will get special care as well. And Lua will be adjusted over
 time as well, since I finally switched to nvim.
 
 
 ## Roadmap
 
-- [-] Finalize dark color palette
+- [ ] (wip) Finalize dark color palette
 - [ ] Include color palette for terminals (Alacritty, Kitty, iTerm2)
 - [ ] Create light palette
 - [ ] finalize 256 color palette
