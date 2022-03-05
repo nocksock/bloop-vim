@@ -74,8 +74,8 @@ TODO: finish this section
 
 While the color palette is _close_ to done, it's not quite there yet and I keep
 tweaking it from time to time as well as the overall highlight groups. So if
-you're using this, expect some changes to the theme when updating your plugins
-- although they'll be minor and most will be barely noticeable.
+you're using this, expect some changes to the theme when updating your plugins - 
+although they'll be minor and most will be barely noticeable.
 
 [^1]: Tested with vim 8.2 and nvim 0.6.1 using polyglot and tsserver.
 [^2]: That's what I primarily work with, but I'm also looking into rust, and
