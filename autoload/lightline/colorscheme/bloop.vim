@@ -1,4 +1,4 @@
-let s:fg          = g:bloop#palette.fg
+let s:fg          = g:bloop#palette.white
 let s:cyan        = g:bloop#palette.cyan
 let s:green       = g:bloop#palette.green
 let s:green_alt   = g:bloop#palette.green_alt

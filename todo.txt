@@ -1,9 +1,0 @@
-Finalize color palette
-Create light variant
-Include color palette for alacritty
-Proper 256 color support?
-16 colors support via terminal palette?
-Test with nvim
-Write proper readme
-Colors for bat? (preview in fzf)
-Use t_RB for background color, fallback to defined color to work in gui apps (eg neovide)
