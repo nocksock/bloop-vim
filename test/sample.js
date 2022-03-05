@@ -1,4 +1,5 @@
-// source: https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/search/linear-search/linearSearch.js
+// source:
+// https://github.com/trekhleb/javascript-algorithms/blob/master/src/algorithms/search/linear-search/linearSearch.js
 import Comparator from '../../../utils/comparator/Comparator';
 
 /**
