@@ -14,7 +14,7 @@ High contrast theme with a minimal, modern color palette.
 - works with vim and nvim[^1]
 - special care for TypeScript + React[^2]
 
-## Installation
+## Installation and configuration
 
 ```vim
 
