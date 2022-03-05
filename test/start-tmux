@@ -1,0 +1,10 @@
+#!/bin/sh
+
+tmux has-session -t bloop-vim 2>/dev/null
+tmux set-option renumber-windows off
+
+if [ $? == 0 ]; then
+  tmux kill-session -t bloop-vim
+fi
+
+tmux new -s bloop-vim -n watcher  "nodemon -e '*' -w ../colors -w ../autoload -w test.vim -w ./vim -x 'tmux kill-window -t bloop-vim:1; tmux new-window -n vim -t bloop-vim:1 ./vim'"
